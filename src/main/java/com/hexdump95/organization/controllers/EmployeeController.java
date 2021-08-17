@@ -1,6 +1,6 @@
 package com.hexdump95.organization.controllers;
 
-import com.hexdump95.organization.entities.Employee;
+import com.hexdump95.organization.dtos.EmployeeDto;
 import com.hexdump95.organization.services.EmployeeService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -23,26 +23,28 @@ public class EmployeeController {
         this.service = service;
     }
 
+    @SecurityRequirement(name = "bearer-key")
     @GetMapping
-    public List<Employee> get() {
+    public List<EmployeeDto> get() {
         return service.get();
     }
 
+    @SecurityRequirement(name = "bearer-key")
     @GetMapping(path = "/{id}")
-    public ResponseEntity<Employee> getOne(@PathVariable Long id) {
+    public ResponseEntity<EmployeeDto> getOne(@PathVariable Long id) {
         return ResponseEntity.ok(service.getOne(id));
     }
 
     @SecurityRequirement(name = "bearer-key")
     @PostMapping
-    public ResponseEntity<Employee> post(@RequestBody Employee employee) {
+    public ResponseEntity<EmployeeDto> post(@RequestBody EmployeeDto employee) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.post(employee));
     }
 
     @SecurityRequirement(name = "bearer-key")
     @PutMapping(path = "/{id}")
-    public ResponseEntity<Employee> put(@RequestBody Employee employee, @PathVariable Long id) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.put(employee, id));
+    public ResponseEntity<EmployeeDto> put(@RequestBody EmployeeDto employee, @PathVariable Long id) {
+        return ResponseEntity.ok(service.put(employee, id));
     }
 
     @SecurityRequirement(name = "bearer-key")

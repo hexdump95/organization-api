@@ -23,5 +23,5 @@ public class Employee {
     @Column(nullable = false)
     private int phone;
     @ManyToOne(cascade = CascadeType.ALL, optional = false)
-    private Departament departament;
+    private Department department;
 }

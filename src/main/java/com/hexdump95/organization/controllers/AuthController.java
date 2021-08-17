@@ -12,10 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "auth")
 @RestController
 public class AuthController {
-    public final static String LOGIN_ENDPOINT = "/api/v1/auth/login";
+    public static final String LOGIN_ENDPOINT = "/api/v1/auth/login";
 
     @PostMapping(path = LOGIN_ENDPOINT, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest){
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException(
+                "this method is only for documenting the login endpoint in swagger, " +
+                "authentication flow is defined in security filters!"
+        );
     }
 }

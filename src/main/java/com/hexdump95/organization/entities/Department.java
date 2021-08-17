@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Departament {
+public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
