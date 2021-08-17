@@ -35,9 +35,14 @@ public class EmployeeController {
 
     @SecurityRequirement(name = "bearer-key")
     @PostMapping
-    @PutMapping(path = "/{id}")
-    public ResponseEntity<Employee> put(@RequestBody Employee employee) {
+    public ResponseEntity<Employee> post(@RequestBody Employee employee) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.post(employee));
+    }
+
+    @SecurityRequirement(name = "bearer-key")
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<Employee> put(@RequestBody Employee employee, @PathVariable Long id) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.put(employee, id));
     }
 
     @SecurityRequirement(name = "bearer-key")
