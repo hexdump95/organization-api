@@ -16,9 +16,9 @@ pipeline {
       }
     }
 
-    stage('build infra') {
+    stage('prepare heroku app') {
       steps {
-        sh 'echo app_name="$HEROKU_APP_NAME" > .auto.tfvars'
+        sh 'echo app_name=\\"$HEROKU_APP_NAME\\" > .auto.tfvars'
         sh 'terraform init'
         sh 'terraform plan'
         sh 'terraform apply -auto-approve'
