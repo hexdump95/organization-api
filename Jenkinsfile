@@ -26,11 +26,27 @@ pipeline {
     }
 
     stage('prepare heroku app') {
+      when { branch "main" }
       steps {
         sh 'echo app_name=\\"$HEROKU_APP_NAME\\" > .auto.tfvars'
         sh 'terraform init'
         sh 'terraform plan'
         sh 'terraform apply -auto-approve'
+      }
+    }
+
+    stage("deploy container to heroku") {
+      when { branch "main" }
+      environment {
+        HEROKU = credentials("94e25350-9dc4-4eae-8099-5f373661fe12")
+      }
+      steps {
+        sh 'echo $HEROKU_PSW | docker login --username=$HEROKU_USR --password-stdin registry.heroku.com'
+
+        sh 'docker build . -t registry.heroku.com/$HEROKU_APP_NAME/web'
+        sh 'docker push registry.heroku.com/$HEROKU_APP_NAME/web'
+
+        sh 'heroku container:release web -a $HEROKU_APP_NAME'
       }
     }
 
